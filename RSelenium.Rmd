@@ -13,17 +13,17 @@ output:
 
 ## Introduction  
 
-In my recent post *Learning Python*, I promised an article about using python to gather data from web APIs.  I was in the midst of building several functions to gather and clean real estate data from [Trulia](https://www.trulia.com), when I received an email announcing that they were shutting down the API.  While it did bring that project to an end, it did inspire me to resume a project to analyze college swimming meet results that had been long abandonded.
+In my recent post *Learning Python*, I promised an article about using python to gather data from web APIs.  I was in the midst of building several functions to gather and clean real estate data from [Trulia](https://www.trulia.com), when I received an email announcing that they were shutting down the API.  While it did bring that project to an end, it did inspire me to resume a project to analyze college swimming meet results that had been long abandoned.
 
-The first step in the project was to gather the meet results in an automated way from a unified source.  While there are many sources that have college swimming results, [Swimming World](www.swimmingworld.com), [SwimSwam](www.swimswam.com) and [College Swimming.com](www.collegeswimming.com), to name a few, none of them have a complete list of all results.  In addition, the results are often stored as a PDF, making the data difficult to extract.  The only complete source of college swimming results is avaliable at [USA Swimming](www.usaswimming.org).  
+The first step in the project was to gather the meet results in an automated way from a unified source.  While there are many sources that have college swimming results, [Swimming World](www.swimmingworld.com), [SwimSwam](www.swimswam.com) and [College Swimming.com](www.collegeswimming.com), to name a few, none of them have a complete list of all results.  In addition, the results are often stored as a PDF, making the data difficult to extract.  The only complete source of college swimming results is available at [USA Swimming](www.usaswimming.org).  
 
-While USA Swimming has all the college swimming results, they are not easy to access.  There is no API avaliable, so I needed to rely on their [Top Times Report](http://www.usaswimming.org/DesktopDefault.aspx?TabId=1971&Alias=Rainbow&Lang=en).  Unfortunately this form makes it hard to automate the data collection. You have to fill out a search form each time you want to get results and the results are limited to the top 500 swimming times in each meet event.  The default format of the results is a PDF, though you can change it to a CSV after you get the results back.  
+While USA Swimming has all the college swimming results, they are not easy to access.  There is no API available, so I needed to rely on their [Top Times Report](http://www.usaswimming.org/DesktopDefault.aspx?TabId=1971&Alias=Rainbow&Lang=en).  Unfortunately this form makes it hard to automate the data collection. You have to fill out a search form each time you want to get results and the results are limited to the top 500 swimming times in each meet event.  The default format of the results is a PDF, though you can change it to a CSV after you get the results back.  
 
 ## Selenium  
-The solution to my problems is a tool called Selenium and it's R implementation **RSelenium**. Though designed to do automated web testing, **RSelenium** can facilitate gathering data from the web.  The package allows the programmer to drive a web browser from an R script.  It allows the user to send mouse clicks and keyboard input to the website.  While it does require the user to look at the underlying html to identifiy objects on the webpage, **RSelenium** is fairly straightforward to use.  
+The solution to my problems is a tool called Selenium and it's R implementation **RSelenium**. Though designed to do automated web testing, **RSelenium** can facilitate gathering data from the web.  The package allows the programmer to drive a web browser from an R script.  It allows the user to send mouse clicks and keyboard input to the website.  While it does require the user to look at the underlying html to identify objects on the webpage, **RSelenium** is fairly straightforward to use.  
 
 ### Starting Selenium Server
-For this example, we will be using a Selenium Standalone Server, so we can drive our browser locally.  While running a Docker container is the suggested method of running Selenium server, we need to run a local server so that we download and access the data. In this example, I am running Selenium Standalone Server version 2.53.1 [(Click Here to Download)](http://selenium-release.storage.googleapis.com/index.html?path=2.53/) and using FireFox version 46.0.1.  Not all combinations of Firefox and Selenium Server play nicely together.  
+For this example, we will be using a Selenium Standalone Server, so we can drive our browser locally.  While running a Docker container is the suggested method of running Selenium server, we need to run a local server so that we download and access the data. In this example, I am running Selenium Standalone Server version 2.53.1 [(Click Here to Download)](http://selenium-release.storage.googleapis.com/index.html?path=2.53/) and using Firefox version 46.0.1.  Not all combinations of Firefox and Selenium Server play nicely together.  
 
 To start the Selenium server, we need to utilize the command line.  After navigating to the folder where you have saved the Selenium server, to start the server, type the command below.  The -port 4400 is optional; by default Selenium listens for connections on port 4444.  To keep the server running, we need to leave the console open.
 
@@ -32,7 +32,7 @@ java -jar selenium-standalone-server.2.53.1.jar -port 4440
 ```  
 
 ### Firefox Profile
-Since Selenium is primarily designed to automate website testing, it does not handle the downloading of files in FireFox automtatically.  To handel the downloding of the CSV file we will generate from the top times report we need to set up a Firefox profile. 
+Since Selenium is primarily designed to automate website testing, it does not handle the downloading of files in Firefox automatically.  To handle the downloading of the CSV file we will generate from the top times report we need to set up a Firefox profile. 
 
 ```{r Firefox_Profile, eval = FALSE}
 # Library Load
@@ -122,7 +122,7 @@ remDr$serverClose()
 ```
 
 ## Conclusion
-**RSelenium** is a capable and relatively easy to use tool to facilitate grabbing data from the web.  If you would like to watch the code from this article execute in real time you can click the image below.  In addition, you can find the example code from this article in a standalone R script at [Github](https://github.com/warlicks/RSelenium-Data-Collection).  The repository also has the Rmarkdown document used to create this post.  
+**RSelenium** is a capable and relatively easy to use tool to facilitate grabbing data from the web.  If you would like to watch the code from this article execute in real time you can click the image below.  In addition, you can find the example code from this article in a standalone R script at [Github](https://github.com/warlicks/RSelenium-Data-Collection).  The repository also has the R markdown document used to create this post.  
 
 [![Video](https://dl.dropboxusercontent.com/u/16957731/WP/Video%20Thumbnail.jpg)](https://dl.dropboxusercontent.com/u/16957731/WP/RSelenium%20Screen%20Capture.mov)
 
